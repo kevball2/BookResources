@@ -10,6 +10,9 @@ pool:
 
 
 steps:
+- task: TerraformInstaller@0
+  inputs:
+    terraformVersion: '0.12.3'
 - task: TerraformTaskV1@0
   inputs:
     provider: 'azurerm'
