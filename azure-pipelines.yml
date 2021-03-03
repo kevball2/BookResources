@@ -10,14 +10,11 @@ pool:
 
 
 steps:
-- task: TerraformInstaller@0
-  inputs:
-    terraformVersion: '0.12.3'
 - task: TerraformTaskV1@0
   inputs:
     provider: 'azurerm'
     command: 'init'
-    workingDirectory: '"$(System.DefaultWorkingDirectory)/Part-I-Tools/Azure Pipelines/VM"'
+    workingDirectory: 'Part-I-Tools/Azure Pipelines/VM'
     commandOptions: '-var="subscriptionID=$(subscriptionID)" var="network_interface\_id=$(network_interface_id)"'
     backendServiceArm: 'Kevin_VisaSubscription(66d49adb-3845-45fd-a9f2-afa6ac081a13)'
     backendAzureRmResourceGroupName: 'NoBSDevOps'
@@ -29,6 +26,6 @@ steps:
   inputs:
     provider: 'azurerm'
     command: 'apply'
-    workingDirectory: '$(System.DefaultWorkingDirectory)/Part-I-Tools/Azure Pipelines/VM'
+    workingDirectory: 'Part-I-Tools/Azure Pipelines/VM'
     commandOptions: '-var="subscriptionID=$(subscriptionID)" -var="network_interface\_id=$(network_interface_id)"'
     environmentServiceNameAzureRM: 'Kevin_VisaSubscription(66d49adb-3845-45fd-a9f2-afa6ac081a13)'
