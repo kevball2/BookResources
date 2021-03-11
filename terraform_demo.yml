@@ -1,0 +1,31 @@
+# Starter Pipepline
+#
+#
+
+trigger:
+- master
+
+pool:
+  vmImage: "ubuntu-latest"
+
+
+steps:
+- task: TerraformTaskV1@0
+  inputs:
+    provider: 'azurerm'
+    command: 'init'
+    workingDirectory: 'Part-I-Tools/Azure Pipelines/VM'
+    commandOptions: '-var="subscriptionID=$(subscriptionID)" -var="network_interface_id=$(network_interface_id)"'
+    backendServiceArm: 'Kevin_VisaSubscription(66d49adb-3845-45fd-a9f2-afa6ac081a13)'
+    backendAzureRmResourceGroupName: 'NoBSDevOps'
+    backendAzureRmStorageAccountName: 'nobsdevops'
+    backendAzureRmContainerName: 'nobsdevop'
+    backendAzureRmKey: 'tf/terraform.tfstate'
+
+- task: TerraformTaskV1@0
+  inputs:
+    provider: 'azurerm'
+    command: 'apply'
+    workingDirectory: 'Part-I-Tools/Azure Pipelines/VM'
+    commandOptions: '-var="subscriptionID=$(subscriptionID)" -var="network_interface_id=$(network_interface_id)"'
+    environmentServiceNameAzureRM: 'Kevin_VisaSubscription(66d49adb-3845-45fd-a9f2-afa6ac081a13)'
